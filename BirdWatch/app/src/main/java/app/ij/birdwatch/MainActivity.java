@@ -61,6 +61,7 @@ public class MainActivity extends AppCompatActivity {
 
         bindViews();
         clickers();
+        startActivity(new Intent(MainActivity.this, ResultActivity.class));
     }
 
     private void clickers() {
