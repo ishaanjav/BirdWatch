@@ -1,0 +1,225 @@
+AFRICAN FIREFINCH is Least Concern
+ALBATROSS is Not extinct
+ALEXANDRINE PARAKEET is Near Threatened
+AMERICAN AVOCET is Least Concern
+AMERICAN BITTERN is Least Concern
+AMERICAN COOT is Least Concern
+AMERICAN GOLDFINCH is Least Concern
+AMERICAN KESTREL is Least Concern
+AMERICAN PIPIT is Least Concern
+AMERICAN REDSTART is Least Concern
+ANHINGA is Least Concern
+ANNAS HUMMINGBIRD is Least Concern
+ANTBIRD is Critically Endangered
+ARARIPE MANAKIN is Critically Endangered
+ASIAN CRESTED IBIS is Endangered
+BALD EAGLE is Least Concern
+BALI STARLING is Critically Endangered
+BALTIMORE ORIOLE is Least Concern
+BANANAQUIT is Least Concern
+BAR-TAILED GODWIT is Least Concern
+BARN OWL is Least Concern
+BARN SWALLOW is Least Concern
+BARRED PUFFBIRD is Least Concern
+BAY-BREASTED WARBLER is Least Concern
+BEARDED BARBET is Least Concern
+BELTED KINGFISHER is Least Concern
+BIRD OF PARADISE is Not extinct
+BLACK FRANCOLIN is Least Concern
+BLACK SKIMMER is Least Concern
+BLACK SWAN is Least Concern
+BLACK THROATED WARBLER is Least Concern
+BLACK VULTURE is Least Concern
+BLACK-CAPPED CHICKADEE is Least Concern
+BLACK-NECKED GREBE is Least Concern
+BLACK-THROATED SPARROW is Least Concern
+BLACKBURNIAM WARBLER is Least Concern
+BLUE GROUSE is Least Concern
+BLUE HERON is Least Concern
+BOBOLINK is Near Threatened
+BROWN NOODY is Least Concern
+BROWN THRASHER is Least Concern
+CACTUS WREN is Least Concern
+CALIFORNIA CONDOR is Critically Endangered
+CALIFORNIA GULL is Least Concern
+CALIFORNIA QUAIL is Least Concern
+CANARY is Least Concern
+CAPE MAY WARBLER is Least Concern
+CAPUCHIN BIRD is Critically Endangered
+CARMINE BEE-EATER is Least Concern
+CASPIAN TERN is Least Concern
+CASSOWARY is Vulnerable
+CHARA DE COLLAR is Least Concern
+CHIPPING SPARROW is Least Concern
+CHUKAR PARTRIDGE is Least Concern
+CINNAMON TEAL is Least Concern
+COCK OF THE  ROCK is Least Concern
+COCKATOO is Not extinct
+COMMON GRACKLE is Least Concern
+COMMON HOUSE MARTIN is Least Concern
+COMMON LOON is Least Concern
+COMMON POORWILL is Least Concern
+COMMON STARLING is Least Concern
+COUCHS KINGBIRD is Least Concern
+CRESTED AUKLET is Least Concern
+CRESTED CARACARA is Least Concern
+CROW is Not extinct
+CROWNED PIGEON is Not extinct
+CUBAN TODY is Least Concern
+CURL CRESTED ARACURI is Least Concern
+D-ARNAUDS BARBET is Least Concern
+DARK EYED JUNCO is Least Concern
+DOWNY WOODPECKER is Least Concern
+EASTERN BLUEBIRD is Least Concern
+EASTERN MEADOWLARK is Least Concern
+EASTERN ROSELLA is Least Concern
+EASTERN TOWEE is Near Threatened
+ELEGANT TROGON is Least Concern
+ELLIOTS  PHEASANT is Near Threatened
+EMPEROR PENGUIN is Near Threatened
+EMU is Least Concern
+EURASIAN MAGPIE is Least Concern
+EVENING GROSBEAK is Least Concern
+FLAME TANAGER is Least Concern
+FLAMINGO is Near Threatened
+FRIGATE is Critically Endangered
+GAMBELS QUAIL is Least Concern
+GILA WOODPECKER is Least Concern
+GILDED FLICKER is Least Concern
+GLOSSY IBIS is Least Concern
+GOLD WING WARBLER is Near Threatened
+GOLDEN CHEEKED WARBLER is Endangered
+GOLDEN CHLOROPHONIA is Least Concern
+GOLDEN EAGLE is Least Concern
+GOLDEN PHEASANT is Least Concern
+GOLDEN PIPIT is Least Concern
+GOULDIAN FINCH is Near Threatened
+GRAY CATBIRD is Least Concern
+GRAY PARTRIDGE is Least Concern
+GREEN JAY is Least Concern
+GREY PLOVER is Least Concern
+GUINEAFOWL is Not extinct
+GYRFALCON is Least Concern
+HARPY EAGLE is Near Threatened
+HAWAIIAN GOOSE is Vulnerable
+HOODED MERGANSER is Least Concern
+HOOPOES is Not extinct
+HORNBILL is Not extinct
+HORNED GUAN is Endangered
+HORNED SUNGEM is Endangered
+HOUSE FINCH is Least Concern
+HOUSE SPARROW is Least Concern
+IMPERIAL SHAG is Least Concern
+INCA TERN is Near Threatened
+INDIAN BUSTARD is Critically Endangered
+INDIGO BUNTING is Least Concern
+JABIRU is Near Threatened
+JAVAN MAGPIE is Critically Endangered
+KAKAPO is critically endangered
+KILLDEAR is Least Concern
+KING VULTURE is Least Concern
+KIWI is Not extinct
+KOOKABURRA is Least Concern
+LARK BUNTING is Least Concern
+LEARS MACAW is endangered
+LILAC ROLLER is Least Concern
+LONG-EARED OWL is Least Concern
+MALABAR HORNBILL is Least Concern
+MALACHITE KINGFISHER is Least Concern
+MALEO is endangered
+MALLARD DUCK is Least Concern
+MANDRIN DUCK is Least Concern
+MARABOU STORK is Not extinct
+MASKED BOOBY is Least Concern
+MIKADO  PHEASANT is near threatened
+MOURNING DOVE is Least Concern
+MYNA is Least Concern
+NICOBAR PIGEON is critically endangered
+NORTHERN CARDINAL is Least Concern
+NORTHERN FLICKER is Least Concern
+NORTHERN GANNET is Least Concern
+NORTHERN GOSHAWK is Least Concern
+NORTHERN JACANA is Least Concern
+NORTHERN MOCKINGBIRD is Least Concern
+NORTHERN PARULA is Least Concern
+NORTHERN RED BISHOP is Least Concern
+OCELLATED TURKEY is Near Threatened
+OKINAWA RAIL is Not extinct
+OSPREY is Least Concern
+OSTRICH is Least Concern
+PAINTED BUNTIG is Near Threatened
+PALILA is critically endangered
+PARADISE TANAGER is Least Concern
+PARUS MAJOR is Least Concern
+PEACOCK is Least Concern
+PELICAN is Not extinct
+PEREGRINE FALCON is Least Concern
+PHILIPPINE EAGLE is critically endangered
+PINK ROBIN is Least Concern
+PUFFIN is Not extinct
+PURPLE FINCH is Not extinct
+PURPLE GALLINULE is Least Concern
+PURPLE MARTIN is Least Concern
+PURPLE SWAMPHEN is Least Concern
+QUETZAL is Near Threatened
+RAINBOW LORIKEET is least concern
+RAZORBILL is Least Concern
+RED FACED CORMORANT is Least Concern
+RED FACED WARBLER is Least Concern
+RED HEADED DUCK is Critically Endangered
+RED HEADED WOODPECKER is Near Threatened
+RED HONEY CREEPER is Least Concern
+RED THROATED BEE EATER is Least Concern
+RED WINGED BLACKBIRD is Not extinct
+RED WISKERED BULBUL is Least Concern
+RING-NECKED PHEASANT is Least Concern
+ROADRUNNER is Least Concern
+ROBIN is Least Concern
+ROCK DOVE is Least Concern
+ROSY FACED LOVEBIRD is Least Concern
+ROUGH LEG BUZZARD is Least Concern
+RUBY THROATED HUMMINGBIRD is Least Concern
+RUFOUS KINGFISHER is Near Threatened
+RUFUOS MOTMOT is Least Concern
+SAND MARTIN is least concern
+SCARLET IBIS is Least Concern
+SCARLET MACAW is Least Concern
+SHOEBILL is critically endangered
+SMITHS LONGSPUR is Least Concern
+SNOWY EGRET is Least Concern
+SNOWY OWL is Least Concern
+SORA is Least Concern
+SPANGLED COTINGA is least concern
+SPLENDID WREN is Least Concern
+SPOON BILLED SANDPIPER is critically endangered
+SPOONBILL is Not extinct
+STEAMER DUCK is least concern
+STORK BILLED KINGFISHER is least concern
+STRAWBERRY FINCH is Least Concern
+STRIPPED SWALLOW is Least Concern
+SUPERB STARLING is Least Concern
+TAIWAN MAGPIE is Least Concern
+TAKAHE is endangered
+TASMANIAN HEN is least concern
+TEAL DUCK is Least Concern
+TIT MOUSE is Not extinct
+TOUCHAN is Least Concern
+TOWNSENDS WARBLER is Least Concern
+TREE SWALLOW is Not extinct
+TRUMPTER SWAN is Least Concern
+TURKEY VULTURE is Least Concern
+TURQUOISE MOTMOT is Least Concern
+VARIED THRUSH is Least Concern
+VENEZUELIAN TROUPIAL is Least Concern
+VERMILION FLYCATHER is Least Concern
+VIOLET GREEN SWALLOW is Least Concern
+WATTLED CURASSOW is endangered
+WHIMBREL is Least Concern
+WHITE CHEEKED TURACO is least concern
+WHITE NECKED RAVEN is Least Concern
+WHITE TAILED TROPIC is Least Concern
+WILD TURKEY is Least Concern
+WILSONS BIRD OF PARADISE is near threatened
+WOOD DUCK is Least Concern
+YELLOW CACIQUE is Least Concern
+YELLOW HEADED BLACKBIRD is Least Concern
