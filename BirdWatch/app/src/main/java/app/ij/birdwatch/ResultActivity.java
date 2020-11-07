@@ -23,11 +23,12 @@ public class ResultActivity extends AppCompatActivity {
 
     float[] prob;
     int top = 10;
-    ArrayList<String> topResults;
+    ArrayList<Bird> topResults;
     Bitmap img;
     ImageView image;
     Button next;
     ListView list;
+    ArrayList<Pair> pairs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,25 +37,51 @@ public class ResultActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         loadAndBind();
-//        getResults();
         test();
         listener();
+//        getResults();
+//        loadList();
     }
 
-    void listener(){
+    void listener() {
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(Selected.chosen){
+                if (Selected.chosen) {
                     //README
                     // Show thank you page or something
-                }else{
+                } else {
                     makeToast("Please select one of the options");
                 }
             }
         });
 
     }
+
+    void loadList() {
+        ArrayList<Row> rowList = new ArrayList<>();
+        for (int i = 0; i < top; i += 2) {
+            // Only 1 bird in this row
+            if (i == top - 1) {
+                rowList.add(new Row(topResults.get(i).bird, topResults.get(i).prob));
+            } else {
+                rowList.add(new Row(topResults.get(i).bird, topResults.get(i).prob,
+                        topResults.get(i + 1).bird, topResults.get(i + 1).prob));
+            }
+        }
+        // Add "none of the above" option
+        Row lastRow = rowList.get(rowList.size() - 1);
+        if (lastRow.present) {
+            Row newRow = new Row("special", 0);
+            rowList.add(newRow);
+        } else {
+            lastRow = new Row(lastRow.bird1, lastRow.prob1, "special", 0);
+            rowList.set(rowList.size() - 1, lastRow);
+        }
+        BirdAdapter adapter = new BirdAdapter(getApplicationContext(), R.layout.bird_row, rowList);
+        list.setAdapter(adapter);
+    }
+
 
     void test() {
         list = findViewById(R.id.list);
@@ -64,10 +91,10 @@ public class ResultActivity extends AppCompatActivity {
 //        rowList.add(new Row("E", 0.10f));
         rowList.add(new Row("E", 0.10f, "fff", 0.01f));
         Row lastRow = rowList.get(rowList.size() - 1);
-        if(lastRow.present){
+        if (lastRow.present) {
             Row newRow = new Row("special", 0);
             rowList.add(newRow);
-        }else{
+        } else {
             lastRow = new Row(lastRow.bird1, lastRow.prob1, "special", 0);
             rowList.set(rowList.size() - 1, lastRow);
         }
@@ -80,18 +107,18 @@ public class ResultActivity extends AppCompatActivity {
         img = getIntent().getParcelableExtra("image");
         image = findViewById(R.id.image);
         next = findViewById(R.id.next);
-//        image.setImageBitmap(img);
+        image.setImageBitmap(img);
         list = findViewById(R.id.list);
     }
 
     public void getResults() {
-        ArrayList<Pair> pairs = new ArrayList<>();
+        pairs = new ArrayList<>();
         for (int i = 0; i < prob.length; i++) {
             pairs.add(new Pair(prob[i], i));
         }
         Collections.sort(pairs, new Sort());
         for (int i = pairs.size() - 1; i > pairs.size() - top; i--)
-            topResults.add(BirdClasses.classes.get(pairs.get(i).index));
+            topResults.add(new Bird(BirdClasses.classes.get(pairs.get(i).index), pairs.get(i).prob));
         makeToast("Got: " + topResults);
     }
 
@@ -104,6 +131,16 @@ public class ResultActivity extends AppCompatActivity {
 
             default:
                 return super.onOptionsItemSelected(item);
+        }
+    }
+
+    public class Bird {
+        String bird;
+        float prob;
+
+        public Bird(String b, float p) {
+            bird = b;
+            prob = p;
         }
     }
 

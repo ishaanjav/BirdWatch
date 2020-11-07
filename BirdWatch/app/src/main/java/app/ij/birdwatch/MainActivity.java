@@ -65,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
 
         bindViews();
         clickers();
-        startActivity(new Intent(MainActivity.this, ResultActivity.class));
+//        startActivity(new Intent(MainActivity.this, ResultActivity.class));
     }
 
     private void clickers() {
@@ -75,16 +75,16 @@ public class MainActivity extends AppCompatActivity {
                 //DONE
                 // Need to do the classification here
                 // Pass the float array and the bitmap
-                try {
-                    Intent intent = new Intent(getApplicationContext(), ResultActivity.class);
+//                try {
+                    Intent intent = new Intent(MainActivity.this, ResultActivity.class);
                     intent.putExtra("image", img);
-                    intent.putExtra("probs", prediction());
+//                    intent.putExtra("probs", prediction());
                     startActivity(intent);
-                } catch (IOException e) {
-                    makeToast("Error making prediction " + e.toString());
-                    Log.wtf("*Error making prediction when going to next activity.", e.toString());
-                    e.printStackTrace();
-                }
+//                } catch (Exception e) {
+//                    makeToast("Error making prediction " + e.toString());
+//                    Log.wtf("*Error making prediction when going to next activity.", e.toString());
+//                    e.printStackTrace();
+//                }
             }
         });
         fab.setOnClickListener(new View.OnClickListener() {
