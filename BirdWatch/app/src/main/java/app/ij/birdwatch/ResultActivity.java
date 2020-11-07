@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
@@ -15,6 +16,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 import android.widget.Toolbar;
 
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -36,7 +38,11 @@ public class ResultActivity extends AppCompatActivity {
         setContentView(R.layout.activity_result);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        loadAndBind();
+        try {
+            loadAndBind();
+        } catch (FileNotFoundException e) {
+            makeToast("Error getting image from previous page.");
+        }
         test();
         listener();
 //        getResults();
@@ -102,9 +108,9 @@ public class ResultActivity extends AppCompatActivity {
         list.setAdapter(adapter);
     }
 
-    private void loadAndBind() {
-        prob = getIntent().getFloatArrayExtra("probs");
-        img = getIntent().getParcelableExtra("image");
+    private void loadAndBind() throws FileNotFoundException {
+//        prob = getIntent().getFloatArrayExtra("probs");
+        img = BitmapFactory.decodeStream(getApplicationContext().openFileInput("myImage"));
         image = findViewById(R.id.image);
         next = findViewById(R.id.next);
         image.setImageBitmap(img);

@@ -38,6 +38,7 @@ import org.pytorch.Module;
 import org.pytorch.Tensor;
 import org.pytorch.torchvision.TensorImageUtils;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -67,7 +68,21 @@ public class MainActivity extends AppCompatActivity {
         clickers();
 //        startActivity(new Intent(MainActivity.this, ResultActivity.class));
     }
-
+    public String createImageFromBitmap(Bitmap bitmap) {
+        String fileName = "myImage";//no .png or .jpg needed
+        try {
+            ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+            FileOutputStream fo = openFileOutput(fileName, Context.MODE_PRIVATE);
+            fo.write(bytes.toByteArray());
+            // remember close file output
+            fo.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+            fileName = null;
+        }
+        return fileName;
+    }
     private void clickers() {
         identify.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -77,7 +92,8 @@ public class MainActivity extends AppCompatActivity {
                 // Pass the float array and the bitmap
 //                try {
                     Intent intent = new Intent(MainActivity.this, ResultActivity.class);
-                    intent.putExtra("image", img);
+//                    intent.putExtra("image", img);
+                    intent.putExtra("image", createImageFromBitmap(img));
 //                    intent.putExtra("probs", prediction());
                     startActivity(intent);
 //                } catch (Exception e) {
