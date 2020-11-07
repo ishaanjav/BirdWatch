@@ -60,22 +60,66 @@ public class BirdAdapter extends ArrayAdapter<Row> {
         box2 = v.findViewById(R.id.card2);
 
         box1 = v.findViewById(R.id.card1);
-        box1.setOnClickListener(selectListener(bird.bird1, rl, image));
         // README
         // Display results - image has to be based off of name
         name.setText(bird.bird1);
         prob.setText(" " + bird.prob1 + " %");
 
+
         // No second bird
         if (!bird.present) {
             box2.setVisibility(View.INVISIBLE);
-            return v;
-        }else{
+        } else {
             box2.setVisibility(View.VISIBLE);
+            setSecond(position, v);
         }
-        setSecond(position, v);
-        box2.setOnClickListener(selectListener(bird.bird2, rl2, (ImageView) v.findViewById(R.id.image2)));
+
+        // Selection
+        RelativeLayout wrapper = v.findViewById(R.id.wrapper1);
+        RelativeLayout stuff = v.findViewById(R.id.stuff);
+        if (bird.bird1.equals("special")) {
+            stuff.setVisibility(View.INVISIBLE);
+            box1.setOnClickListener(listener2("None of the above", wrapper));
+            wrapper.setVisibility(View.VISIBLE);
+        } else {
+            box1.setOnClickListener(selectListener(bird.bird1, rl, image));
+            stuff.setVisibility(View.VISIBLE);
+            wrapper.setVisibility(View.INVISIBLE);
+        }
+        wrapper = v.findViewById(R.id.wrapper2);
+        stuff = v.findViewById(R.id.stuff2);
+        if (bird.present && bird.bird2.equals("special")) {
+            box2.setOnClickListener(listener2("None of the above", wrapper));
+            stuff.setVisibility(View.INVISIBLE);
+            wrapper.setVisibility(View.VISIBLE);
+        } else {
+            box2.setOnClickListener(selectListener(bird.bird2, rl2, (ImageView) v.findViewById(R.id.image2)));
+            stuff.setVisibility(View.VISIBLE);
+            wrapper.setVisibility(View.INVISIBLE);
+        }
         return v;
+    }
+
+
+    public View.OnClickListener listener2(final String s, final RelativeLayout rel) {
+        return new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int backgroundColor = ((CardView) (view)).getCardBackgroundColor().getDefaultColor();
+                if (Selected.chosen) {
+                    if (Selected.selection.equals(s)) {
+                        Selected.chosen = false;
+                        rel.setBackgroundColor(Color.parseColor("#ffffff"));
+                    } else
+                        makeToast("You have already selected: " + Selected.selection);
+                } else {
+                    Selected.selection = s;
+                    Selected.chosen = true;
+                    rel.setBackgroundColor(Color.parseColor("#b5b5b5"));
+                }
+                Log.wtf("*Color:", " " + backgroundColor);
+            }
+        };
     }
 
     public View.OnClickListener selectListener(final String s, final RelativeLayout rel, final ImageView img) {
@@ -122,7 +166,7 @@ public class BirdAdapter extends ArrayAdapter<Row> {
 
 
     public void makeToast(String s) {
-        Toast.makeText(context, s, Toast.LENGTH_LONG).show();
+        Toast.makeText(context, s, Toast.LENGTH_SHORT).show();
     }
 
 }

@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:background="#ECFFC0">
 
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -27,6 +28,27 @@
 
             <RelativeLayout
                 android:layout_width="140sp"
+                android:visibility="invisible"
+                android:id="@+id/wrapper1"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/hidden"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_centerInParent="true"
+                    android:textAlignment="center"
+                    android:layout_marginTop="90sp"
+                    android:layout_marginLeft="10sp"
+                    android:layout_marginRight="10sp"
+                    android:text="None of\nthe above"
+                    android:textColor="#617E2A"
+                    android:textSize="23sp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/stuff"
+                android:layout_width="140sp"
                 android:layout_height="wrap_content">
 
                 <ImageView
@@ -37,9 +59,9 @@
                     android:src="@drawable/bird" />
 
                 <RelativeLayout
+                    android:id="@+id/w1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/w1"
                     android:layout_below="@+id/image">
 
                     <TextView
@@ -73,10 +95,32 @@
             android:id="@+id/card2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="10sp"
             app:cardCornerRadius="15sp"
             app:cardElevation="8sp">
 
             <RelativeLayout
+                android:layout_width="140sp"
+                android:id="@+id/wrapper2"
+                android:visibility="invisible"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/hidden2"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_centerInParent="true"
+                    android:textAlignment="center"
+                    android:layout_marginTop="90sp"
+                    android:layout_marginLeft="10sp"
+                    android:layout_marginRight="10sp"
+                    android:text="None of\nthe above"
+                    android:textColor="#617E2A"
+                    android:textSize="23sp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/stuff2"
                 android:layout_width="140sp"
                 android:layout_height="wrap_content">
 
@@ -88,9 +132,9 @@
                     android:src="@drawable/bird" />
 
                 <RelativeLayout
+                    android:id="@+id/w2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/w2"
                     android:layout_below="@+id/image2">
 
                     <TextView
@@ -121,4 +165,5 @@
             android:layout_height="wrap_content"
             android:layout_weight="15" />
     </LinearLayout>
+
 </RelativeLayout>

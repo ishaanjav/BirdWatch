@@ -1,10 +1,14 @@
 package app.ij.birdwatch;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -31,9 +35,25 @@ public class ResultActivity extends AppCompatActivity {
         setContentView(R.layout.activity_result);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-//        loadAndBind();
+        loadAndBind();
 //        getResults();
         test();
+        listener();
+    }
+
+    void listener(){
+        next.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(Selected.chosen){
+                    //README
+                    // Show thank you page or something
+                }else{
+                    makeToast("Please select one of the options");
+                }
+            }
+        });
+
     }
 
     void test() {
@@ -41,7 +61,16 @@ public class ResultActivity extends AppCompatActivity {
         ArrayList<Row> rowList = new ArrayList<>();
         rowList.add(new Row("A", 0.32f, "B", 0.13f));
         rowList.add(new Row("c", 0.12f, "d", 0.08f));
-        rowList.add(new Row("E", 0.10f));
+//        rowList.add(new Row("E", 0.10f));
+        rowList.add(new Row("E", 0.10f, "fff", 0.01f));
+        Row lastRow = rowList.get(rowList.size() - 1);
+        if(lastRow.present){
+            Row newRow = new Row("special", 0);
+            rowList.add(newRow);
+        }else{
+            lastRow = new Row(lastRow.bird1, lastRow.prob1, "special", 0);
+            rowList.set(rowList.size() - 1, lastRow);
+        }
         BirdAdapter adapter = new BirdAdapter(getApplicationContext(), R.layout.bird_row, rowList);
         list.setAdapter(adapter);
     }
@@ -51,7 +80,7 @@ public class ResultActivity extends AppCompatActivity {
         img = getIntent().getParcelableExtra("image");
         image = findViewById(R.id.image);
         next = findViewById(R.id.next);
-        image.setImageBitmap(img);
+//        image.setImageBitmap(img);
         list = findViewById(R.id.list);
     }
 
