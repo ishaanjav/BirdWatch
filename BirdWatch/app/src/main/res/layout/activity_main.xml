@@ -6,21 +6,54 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <RelativeLayout
+    <TextView
+        android:id="@+id/prompt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="175sp"
-        android:background="@drawable/green_bg">
+        android:layout_marginTop="70sp"
+        android:text="Take a picture!"
+        android:textColor="#856D65"
+        android:textSize="29sp"
+        android:textStyle="bold" />
 
-        <ImageView
-            android:id="@+id/image"
-            android:layout_width="300sp"
-            android:layout_height="300sp"
-            android:layout_centerHorizontal="true" />
 
-    </RelativeLayout>
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="140sp"
+        android:elevation="10dp"
+        app:background="@drawable/green_bg"
+        app:cardCornerRadius="20dp">
 
+        <androidx.cardview.widget.CardView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="6sp"
+            app:cardCornerRadius="15dp">
+
+            <ImageView
+                android:id="@+id/image"
+                android:layout_width="300sp"
+                android:layout_height="300sp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/bird" />
+        </androidx.cardview.widget.CardView>
+    </androidx.cardview.widget.CardView>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/identify"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/fab"
+        android:layout_alignParentRight="true"
+        android:layout_margin="@dimen/fab_margin"
+        android:layout_marginBottom="13sp"
+        android:visibility="visible"
+        app:backgroundTint="#FFD555"
+        app:srcCompat="@drawable/glassimg" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab"
@@ -29,7 +62,7 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
         android:layout_margin="@dimen/fab_margin"
-        app:backgroundTint="#4CAF50"
+        app:backgroundTint="#000000"
         app:srcCompat="@drawable/camera_white" />
 
 </RelativeLayout>

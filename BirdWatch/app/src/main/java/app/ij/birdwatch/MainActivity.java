@@ -2,10 +2,15 @@ package app.ij.birdwatch;
 
 import android.Manifest;
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
+import android.media.ExifInterface;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -15,23 +20,30 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.cardview.widget.CardView;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import android.os.Handler;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
+import android.view.animation.DecelerateInterpolator;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.IOException;
+import java.io.InputStream;
 
 public class MainActivity extends AppCompatActivity {
 
-    FloatingActionButton fab;
+    FloatingActionButton fab, identify;
     int PICTURE_RESULT = 1, GALLERY_RESULT = 2;
     int REQUEST_CAMERA = 1034, REQUEST_GALLERY = 1000, REQUEST_GALLERY_FROM_CAMERA = 234;
 
@@ -39,14 +51,25 @@ public class MainActivity extends AppCompatActivity {
     Bitmap img;
     ImageView image;
     ContentValues values;
+    CardView card;
+    TextView prompt;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        image = findViewById(R.id.image);
-        fab = findViewById(R.id.fab);
+        bindViews();
+        clickers();
+    }
+
+    private void clickers() {
+        identify.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -70,11 +93,16 @@ public class MainActivity extends AppCompatActivity {
                 try {
                     img = MediaStore.Images.Media.getBitmap(
                             getContentResolver(), imageUri);
-
+                    img = ImageHandling.centerCrop(img);
+                    img = ImageHandling.handleSamplingAndRotationBitmap(getApplicationContext(), imageUri);
                     image.setImageBitmap(img);
-                    makeToast("Got the image");
+                    makeToast("Ready to identify the bird?");
+                    prompt.setText("Identify the Bird!");
+
+                    showIdentifier();
                 } catch (Exception e) {
                     e.printStackTrace();
+                    Log.wtf("*Error getting image:", e.toString());
                     makeToast("Error getting image");
                 }
             } else {
@@ -82,6 +110,22 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
+
+    public void showIdentifier() {
+        Handler h = new Handler();
+        Runnable r = new Runnable() {
+            @Override
+            public void run() {
+                Animation fadeIn = new AlphaAnimation(0, 1);
+                fadeIn.setInterpolator(new DecelerateInterpolator()); //add this
+                fadeIn.setDuration(1000);
+                identify.setVisibility(View.VISIBLE);
+                identify.setAnimation(fadeIn);
+            }
+        };
+        h.postDelayed(r, 1200);
+    }
+
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -116,6 +160,15 @@ public class MainActivity extends AppCompatActivity {
 
     public void makeToast(String s) {
         Toast.makeText(getApplicationContext(), s, Toast.LENGTH_LONG).show();
+    }
+
+    public void bindViews() {
+        image = findViewById(R.id.image);
+        fab = findViewById(R.id.fab);
+        card = findViewById(R.id.card);
+        prompt = findViewById(R.id.prompt);
+        identify = findViewById(R.id.identify);
+        card.setBackgroundResource(R.drawable.green_bg);
     }
 
 }
