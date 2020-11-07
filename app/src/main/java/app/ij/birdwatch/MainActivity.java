@@ -65,6 +65,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     void buttons() {
+        /*
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -73,7 +74,7 @@ public class MainActivity extends AppCompatActivity
                 intent.putExtra("image", imageUri);
                 startActivity(intent);
             }
-        });
+        });*/
         camera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -111,45 +112,6 @@ public class MainActivity extends AppCompatActivity
 
     }
 
-    // Get the result from the Camera/Gallery
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        // They didn't cancel
-        if (resultCode == RESULT_OK) {
-            if (requestCode == PICTURE_RESULT) {
-                try {
-                    img = MediaStore.Images.Media.getBitmap(
-                            getContentResolver(), imageUri);
-                    img = handleSamplingAndRotationBitmap(getApplicationContext(), imageUri);
-                    img = centerCrop(img);
-                    imageView.setImageBitmap(img);
-                    imageurl = getRealPathFromURI(imageUri);
-                    makeToast("Got the image");
-                    next.setVisibility(View.VISIBLE);
-                    text.setVisibility(View.INVISIBLE);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            } else {
-                imageUri = data.getData();
-                try {
-                    img = MediaStore.Images.Media.getBitmap(this.getContentResolver(), imageUri);
-                    img = handleSamplingAndRotationBitmap(getApplicationContext(), imageUri);
-                    img = centerCrop(img);
-                    next.setVisibility(View.VISIBLE);
-                    text.setVisibility(View.INVISIBLE);
-                    imageView.setImageBitmap(img);
-                    makeToast("Got the image");
-                } catch (IOException e) {
-                    e.printStackTrace();
-                    makeToast("Error getting image");
-                    Log.wtf("*Gallery error: ", e.toString());
-                }
-            }
-        }
-    }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
