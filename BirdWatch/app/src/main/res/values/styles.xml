@@ -15,4 +15,11 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
+    <style name="prob_style">
+        <item name="android:layout_centerHorizontal">true</item>
+        <item name="android:textStyle">italic</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:layout_marginBottom">3sp</item>
+        <item name="android:textSize">16sp</item>
+    </style>
 </resources>

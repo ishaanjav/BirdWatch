@@ -6,42 +6,83 @@
     android:layout_height="match_parent"
     tools:context=".ResultActivity">
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/top"
+        android:background="#fafafa">
 
+        <ImageView
+            android:id="@+id/image"
+            android:layout_width="130sp"
+            android:layout_height="130sp" />
+
+        <TextView
+            android:id="@+id/whichText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15sp"
+            android:layout_centerVertical="true"
+            android:textAlignment="center"
+            android:layout_marginRight="10sp"
+            android:layout_toRightOf="@+id/image"
+            android:text="Which one of these looks like a match?"
+            android:textColor="#000"
+            android:textSize="20sp" />
+
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_below="@id/top"
+        android:background="#74AF2F" />
+
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:dividerHeight="3dp"
+        android:divider="#000"
+        android:id="@+id/list"
+        android:layout_marginLeft="10sp"
+        android:layout_marginRight="10sp"
+        android:layout_marginBottom="2sp"
+        android:layout_marginTop="3sp"
+        android:layout_below="@+id/top"
+        android:layout_above="@id/ll"
+        />
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="2dp"
         android:layout_above="@id/ll"
-        android:background="#74AF2F"/>
+        android:background="#74AF2F" />
 
     <RelativeLayout
         android:id="@+id/ll"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:background="#ECFFD6"
-        android:orientation="horizontal"
-        >
+        android:background="#F3FFE5"
+        android:orientation="horizontal">
 
 
         <Button
+            android:id="@+id/next"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Next"
-            android:id="@+id/next"
             android:layout_alignParentRight="true"
             android:layout_marginTop="9sp"
-            android:layout_marginBottom="12sp"
             android:layout_marginRight="25sp"
-            android:paddingTop="7sp"
-            android:paddingBottom="7sp"
-            android:textSize="22sp"
-            android:textColor="#8BC34A"
-            android:textAllCaps="false"
+            android:layout_marginBottom="12sp"
             android:background="@drawable/btn_bg"
             android:paddingLeft="35sp"
+            android:paddingTop="7sp"
             android:paddingRight="35sp"
-            />
+            android:paddingBottom="7sp"
+            android:text="Next"
+            android:textAllCaps="false"
+            android:textColor="#8BC34A"
+            android:textSize="22sp" />
 
     </RelativeLayout>
 

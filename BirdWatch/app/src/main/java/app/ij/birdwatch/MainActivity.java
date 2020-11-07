@@ -1,6 +1,7 @@
 package app.ij.birdwatch;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
@@ -71,7 +72,19 @@ public class MainActivity extends AppCompatActivity {
         identify.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                //DONE
+                // Need to do the classification here
+                // Pass the float array and the bitmap
+                try {
+                    Intent intent = new Intent(getApplicationContext(), ResultActivity.class);
+                    intent.putExtra("image", img);
+                    intent.putExtra("probs", prediction());
+                    startActivity(intent);
+                } catch (IOException e) {
+                    makeToast("Error making prediction " + e.toString());
+                    Log.wtf("*Error making prediction when going to next activity.", e.toString());
+                    e.printStackTrace();
+                }
             }
         });
         fab.setOnClickListener(new View.OnClickListener() {
@@ -190,7 +203,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public String modelLearning() throws IOException {
+    public float[] prediction() throws IOException {
         //replace below line to include the image from gallery.
         Bitmap bitmap = BitmapFactory.decodeStream(getAssets().open("image.jpg"));
         Module module = Module.load(assetFilePath(this, "bird-model.pth"));
@@ -220,8 +233,10 @@ public class MainActivity extends AppCompatActivity {
 
         //not sure if im supposed to use the arraylist or the linked list.
         String className = BirdClasses.classes.get(maxScoreIdx);
-        return className;
+        makeToast("Predicted: " + className);
+        return scores;
     }
+
     public void makeToast(String s) {
         Toast.makeText(getApplicationContext(), s, Toast.LENGTH_LONG).show();
     }

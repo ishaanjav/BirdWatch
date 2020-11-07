@@ -2,8 +2,12 @@ package app.ij.birdwatch;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.Toast;
 import android.widget.Toolbar;
 
@@ -16,6 +20,10 @@ public class ResultActivity extends AppCompatActivity {
     float[] prob;
     int top = 10;
     ArrayList<String> topResults;
+    Bitmap img;
+    ImageView image;
+    Button next;
+    ListView list;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,8 +31,28 @@ public class ResultActivity extends AppCompatActivity {
         setContentView(R.layout.activity_result);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+//        loadAndBind();
+//        getResults();
+        test();
+    }
+
+    void test() {
+        list = findViewById(R.id.list);
+        ArrayList<Row> rowList = new ArrayList<>();
+        rowList.add(new Row("A", 0.32f, "B", 0.13f));
+        rowList.add(new Row("c", 0.12f, "d", 0.08f));
+        rowList.add(new Row("E", 0.10f));
+        BirdAdapter adapter = new BirdAdapter(getApplicationContext(), R.layout.bird_row, rowList);
+        list.setAdapter(adapter);
+    }
+
+    private void loadAndBind() {
         prob = getIntent().getFloatArrayExtra("probs");
-        getResults();
+        img = getIntent().getParcelableExtra("image");
+        image = findViewById(R.id.image);
+        next = findViewById(R.id.next);
+        image.setImageBitmap(img);
+        list = findViewById(R.id.list);
     }
 
     public void getResults() {
