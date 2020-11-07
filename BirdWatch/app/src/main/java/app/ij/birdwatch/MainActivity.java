@@ -7,19 +7,14 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Matrix;
-import android.media.ExifInterface;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -30,7 +25,6 @@ import android.util.Log;
 import android.view.View;
 
 import android.view.Menu;
-import android.view.MenuItem;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.DecelerateInterpolator;
@@ -48,6 +42,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.Comparator;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -167,10 +162,6 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
-    public void makeToast(String s) {
-        Toast.makeText(getApplicationContext(), s, Toast.LENGTH_LONG).show();
-    }
-
     public void bindViews() {
         image = findViewById(R.id.image);
         fab = findViewById(R.id.fab);
@@ -231,5 +222,7 @@ public class MainActivity extends AppCompatActivity {
         String className = BirdClasses.classes.get(maxScoreIdx);
         return className;
     }
-
+    public void makeToast(String s) {
+        Toast.makeText(getApplicationContext(), s, Toast.LENGTH_LONG).show();
+    }
 }
