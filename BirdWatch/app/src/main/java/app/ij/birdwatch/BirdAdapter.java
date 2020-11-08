@@ -39,12 +39,9 @@ public class BirdAdapter extends ArrayAdapter<Row> {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        View v = convertView;
-        if (v == null) {
-            LayoutInflater vi;
-            vi = LayoutInflater.from(context);
-            v = vi.inflate(resourceLayout, null);
-        }
+        LayoutInflater inflater = (LayoutInflater) context
+                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View v = inflater.inflate(R.layout.bird_row, parent, false);
         Row bird = list.get(position);
 
         RelativeLayout bg = v.findViewById(R.id.bg);
@@ -64,7 +61,7 @@ public class BirdAdapter extends ArrayAdapter<Row> {
         box1 = v.findViewById(R.id.card1);
         // README
         // Display results - image has to be based off of name
-        name.setText(bird.bird1);
+        name.setText(bird.bird1.replaceAll("_", "-"));
         prob.setText(" " + bird.prob1 + " %");
 
 
@@ -85,11 +82,7 @@ public class BirdAdapter extends ArrayAdapter<Row> {
             box1.setOnClickListener(listener2("None of the above", wrapper));
             wrapper.setVisibility(View.VISIBLE);
         } else {
-            Resources res = context.getResources();
-            String drawableName = formatName(list.get(position).bird1);
-            int resId = res.getIdentifier(drawableName, "drawable", context.getPackageName());
-            Drawable drawable = res.getDrawable(resId);
-            image.setImageDrawable(drawable);
+
 
             box1.setOnClickListener(selectListener(bird.bird1, rl, image));
             stuff.setVisibility(View.VISIBLE);
@@ -102,16 +95,33 @@ public class BirdAdapter extends ArrayAdapter<Row> {
             stuff.setVisibility(View.INVISIBLE);
             wrapper.setVisibility(View.VISIBLE);
         } else {
-            Resources res = context.getResources();
-            String drawableName = formatName(list.get(position).bird2);
-            int resId = res.getIdentifier(drawableName, "drawable", context.getPackageName());
-            Drawable drawable = res.getDrawable(resId);
-            image.setImageDrawable(drawable);
+//            String drawableName = list.get(position).bird2;
+//            try {
+//                Resources res = context.getResources();
+//                drawableName = formatName(list.get(position).bird2);
+//                int resId = res.getIdentifier(drawableName, "drawable", context.getPackageName());
+//                Drawable drawable = res.getDrawable(resId);
+//                image.setImageDrawable(drawable);
+//            } catch (Exception e) {
+//                Log.wtf("Could not load", drawableName);
+//            }
 
             box2.setOnClickListener(selectListener(bird.bird2, rl2, (ImageView) v.findViewById(R.id.image2)));
             stuff.setVisibility(View.VISIBLE);
             wrapper.setVisibility(View.INVISIBLE);
         }
+
+        if(bird.bird1.equals("special")){
+
+        }else{
+            Resources res = context.getResources();
+            String drawableName = formatName(list.get(position).bird1);
+            int resId = res.getIdentifier(drawableName, "drawable", context.getPackageName());
+            Drawable drawable = res.getDrawable(resId);
+            image.setImageDrawable(drawable);
+            Log.wtf(v.getId()+":", drawableName);
+        }
+
         return v;
     }
 
@@ -174,8 +184,15 @@ public class BirdAdapter extends ArrayAdapter<Row> {
         ImageView image = v.findViewById(R.id.image2);
         TextView name = v.findViewById(R.id.name2);
         TextView prob = v.findViewById(R.id.prob2);
-        name.setText(bird.bird2);
+        name.setText(bird.bird2.replaceAll("_", "-"));
         prob.setText(" " + bird.prob2 + " %");
+
+        Resources res = context.getResources();
+        String drawableName = formatName(list.get(pos).bird2);
+        int resId = res.getIdentifier(drawableName, "drawable", context.getPackageName());
+        Drawable drawable = res.getDrawable(resId);
+        image.setImageDrawable(drawable);
+        Log.wtf(v.getId()+":", drawableName);
     }
 
     public String formatName(String s) {

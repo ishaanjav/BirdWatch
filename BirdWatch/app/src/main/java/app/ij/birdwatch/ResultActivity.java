@@ -92,10 +92,10 @@ public class ResultActivity extends AppCompatActivity {
     void test() {
         list = findViewById(R.id.list);
         ArrayList<Row> rowList = new ArrayList<>();
-        rowList.add(new Row("A", 0.32f, "B", 0.13f));
-        rowList.add(new Row("c", 0.12f, "d", 0.08f));
+        rowList.add(new Row("Albatross", 0.32f, "Alexandrine Parakeet", 0.13f));
+        rowList.add(new Row("American Redstart", 0.12f, "Black_necked Grebe", 0.08f));
 //        rowList.add(new Row("E", 0.10f));
-        rowList.add(new Row("E", 0.10f, "fff", 0.01f));
+        rowList.add(new Row("Black_throated Sparrow", 0.10f, "Cock Of The Rock", 0.01f));
         Row lastRow = rowList.get(rowList.size() - 1);
         if (lastRow.present) {
             Row newRow = new Row("special", 0);
@@ -113,7 +113,7 @@ public class ResultActivity extends AppCompatActivity {
         img = BitmapFactory.decodeStream(getApplicationContext().openFileInput("myImage"));
         image = findViewById(R.id.image);
         next = findViewById(R.id.next);
-        image.setImageBitmap(img);
+//        image.setImageBitmap(img);
         list = findViewById(R.id.list);
     }
 
