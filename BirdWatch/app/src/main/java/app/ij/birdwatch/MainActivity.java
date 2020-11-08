@@ -72,13 +72,13 @@ public class MainActivity extends AppCompatActivity {
         bindViews();
         clickers();
 //        startActivity(new Intent(MainActivity.this, FinishedActivity.class));
-//        try {
-//            tflite = new Interpreter(loadModelFile());
-//        } catch (IOException e) {
-//            makeToast("Error getting model.");
-//            Log.wtf("*Model Loading Error", e.toString());
-//        }
-//        test();
+        try {
+            tflite = new Interpreter(loadModelFile());
+        } catch (IOException e) {
+            makeToast("Error getting model.");
+            Log.wtf("*Model Loading Error", e.toString());
+        }
+        test();
     }
 
 
@@ -88,6 +88,9 @@ public class MainActivity extends AppCompatActivity {
             img = BitmapFactory.decodeResource(getApplicationContext().getResources(),
                     R.drawable.capuchinbird);
             image.setImageBitmap(img);
+//            classifyImage(img);
+//            classifyImage(BitmapFactory.decodeResource(getApplicationContext().getResources(),
+//                    R.drawable.albatross));
         } catch (Exception e) {
             makeToast("Error getting model.");
             Log.wtf("*Model Loading Error", e.toString());
