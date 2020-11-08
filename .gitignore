@@ -12,3 +12,5 @@
 /BirdWatch/captures
 /BirdWatch.externalNativeBuild
 /BirdWatch.cxx
+prediction.java
+bird-model.pth

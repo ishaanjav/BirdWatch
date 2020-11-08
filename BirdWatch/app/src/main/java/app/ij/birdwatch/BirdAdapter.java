@@ -3,7 +3,9 @@ package app.ij.birdwatch;
 import android.Manifest;
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.content.res.Resources;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.util.TypedValue;
@@ -74,6 +76,7 @@ public class BirdAdapter extends ArrayAdapter<Row> {
             setSecond(position, v);
         }
 
+
         // Selection
         RelativeLayout wrapper = v.findViewById(R.id.wrapper1);
         RelativeLayout stuff = v.findViewById(R.id.stuff);
@@ -82,6 +85,12 @@ public class BirdAdapter extends ArrayAdapter<Row> {
             box1.setOnClickListener(listener2("None of the above", wrapper));
             wrapper.setVisibility(View.VISIBLE);
         } else {
+            Resources res = context.getResources();
+            String drawableName = formatName(list.get(position).bird1);
+            int resId = res.getIdentifier(drawableName, "drawable", context.getPackageName());
+            Drawable drawable = res.getDrawable(resId);
+            image.setImageDrawable(drawable);
+
             box1.setOnClickListener(selectListener(bird.bird1, rl, image));
             stuff.setVisibility(View.VISIBLE);
             wrapper.setVisibility(View.INVISIBLE);
@@ -93,13 +102,18 @@ public class BirdAdapter extends ArrayAdapter<Row> {
             stuff.setVisibility(View.INVISIBLE);
             wrapper.setVisibility(View.VISIBLE);
         } else {
+            Resources res = context.getResources();
+            String drawableName = formatName(list.get(position).bird2);
+            int resId = res.getIdentifier(drawableName, "drawable", context.getPackageName());
+            Drawable drawable = res.getDrawable(resId);
+            image.setImageDrawable(drawable);
+
             box2.setOnClickListener(selectListener(bird.bird2, rl2, (ImageView) v.findViewById(R.id.image2)));
             stuff.setVisibility(View.VISIBLE);
             wrapper.setVisibility(View.INVISIBLE);
         }
         return v;
     }
-
 
     public View.OnClickListener listener2(final String s, final RelativeLayout rel) {
         return new View.OnClickListener() {
@@ -164,9 +178,8 @@ public class BirdAdapter extends ArrayAdapter<Row> {
         prob.setText(" " + bird.prob2 + " %");
     }
 
-    public String formatName(String s)
-    {
-        s = s.toUpperCase();
+    public String formatName(String s) {
+        s = s.toLowerCase();
         s = s.replaceAll(" ", "_");
         return s;
     }
