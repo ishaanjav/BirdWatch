@@ -1,7 +1,6 @@
 package app.ij.birdwatch;
 
 import android.Manifest;
-import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
@@ -9,9 +8,7 @@ import android.content.pm.PackageManager;
 import android.content.res.AssetFileDescriptor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Color;
 import android.graphics.Matrix;
-import android.location.Geocoder;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -50,9 +47,6 @@ import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.MappedByteBuffer;
 import java.nio.channels.FileChannel;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -265,6 +259,8 @@ public class MainActivity extends AppCompatActivity {
             intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
             startActivityForResult(intent, PICTURE_RESULT);
         } catch (Exception e) {
+//            Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+//            startActivityForResult(cameraIntent, 3);
             Log.wtf("*Error launching Camera", e.toString());
             makeToast("Unable to launch camera.");
         }

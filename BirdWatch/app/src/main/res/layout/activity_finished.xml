@@ -15,7 +15,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
+<<<<<<< HEAD
             android:layout_marginTop="30sp"
+=======
+            android:layout_marginTop="40sp"
+>>>>>>> c52288826c95c045a0adc4fc52c2375780c35422
             android:text="Thank you for\nyour contribution!"
             android:textAlignment="center"
             android:textColor="#000"
@@ -74,8 +78,12 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/info"
             android:layout_marginLeft="40sp"
+<<<<<<< HEAD
             android:layout_marginBottom="10sp"
             android:layout_marginTop="35sp"
+=======
+            android:layout_marginTop="50sp"
+>>>>>>> c52288826c95c045a0adc4fc52c2375780c35422
             android:layout_marginRight="26sp"
             android:text="We'll use your finding to improve our app!"
             android:textSize="19sp"
