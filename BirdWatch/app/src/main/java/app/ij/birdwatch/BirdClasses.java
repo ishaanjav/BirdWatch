@@ -152,8 +152,8 @@ class BirdClasses {
         threat.put("Cuban Tody", "Least Concern");
         classes.add("Curl Crested Aracuri");
         threat.put("Curl Crested Aracuri", "Least Concern");
-        classes.add("D-arnauds Barbet");
-        threat.put("D-arnauds Barbet", "Least Concern");
+        classes.add("D_arnauds Barbet");
+        threat.put("D_arnauds Barbet", "Least Concern");
         classes.add("Dark Eyed Junco");
         threat.put("Dark Eyed Junco", "Least Concern");
         classes.add("Downy Woodpecker");
