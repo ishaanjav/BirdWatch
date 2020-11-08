@@ -82,8 +82,6 @@ public class BirdAdapter extends ArrayAdapter<Row> {
             box1.setOnClickListener(listener2("None of the above", wrapper));
             wrapper.setVisibility(View.VISIBLE);
         } else {
-
-
             box1.setOnClickListener(selectListener(bird.bird1, rl, image));
             stuff.setVisibility(View.VISIBLE);
             wrapper.setVisibility(View.INVISIBLE);
@@ -95,34 +93,24 @@ public class BirdAdapter extends ArrayAdapter<Row> {
             stuff.setVisibility(View.INVISIBLE);
             wrapper.setVisibility(View.VISIBLE);
         } else {
-//            String drawableName = list.get(position).bird2;
-//            try {
-//                Resources res = context.getResources();
-//                drawableName = formatName(list.get(position).bird2);
-//                int resId = res.getIdentifier(drawableName, "drawable", context.getPackageName());
-//                Drawable drawable = res.getDrawable(resId);
-//                image.setImageDrawable(drawable);
-//            } catch (Exception e) {
-//                Log.wtf("Could not load", drawableName);
-//            }
-
             box2.setOnClickListener(selectListener(bird.bird2, rl2, (ImageView) v.findViewById(R.id.image2)));
             stuff.setVisibility(View.VISIBLE);
             wrapper.setVisibility(View.INVISIBLE);
         }
 
-        if(bird.bird1.equals("special")){
-
-        }else{
-            Resources res = context.getResources();
-            String drawableName = formatName(list.get(position).bird1);
-            int resId = res.getIdentifier(drawableName, "drawable", context.getPackageName());
-            Drawable drawable = res.getDrawable(resId);
-            image.setImageDrawable(drawable);
-            Log.wtf(v.getId()+":", drawableName);
-        }
-
+        if (!bird.bird1.equals("special"))
+            getBirdImage(position, image, 1);
         return v;
+    }
+
+    public void getBirdImage(int pos, ImageView image, int id) {
+        Resources res = context.getResources();
+        String drawableName = formatName(list.get(pos).bird1);
+        if (id == 2) drawableName = formatName(list.get(pos).bird2);
+        int resId = res.getIdentifier(drawableName, "drawable", context.getPackageName());
+        Drawable drawable = res.getDrawable(resId);
+        image.setImageDrawable(drawable);
+        Log.wtf("Drawable: ", drawableName);
     }
 
     public View.OnClickListener listener2(final String s, final RelativeLayout rel) {
@@ -187,12 +175,7 @@ public class BirdAdapter extends ArrayAdapter<Row> {
         name.setText(bird.bird2.replaceAll("_", "-"));
         prob.setText(" " + bird.prob2 + " %");
 
-        Resources res = context.getResources();
-        String drawableName = formatName(list.get(pos).bird2);
-        int resId = res.getIdentifier(drawableName, "drawable", context.getPackageName());
-        Drawable drawable = res.getDrawable(resId);
-        image.setImageDrawable(drawable);
-        Log.wtf(v.getId()+":", drawableName);
+        getBirdImage(pos, image, 2);
     }
 
     public String formatName(String s) {

@@ -7,13 +7,13 @@ class BirdClasses {
     public static ArrayList<String> classes;
     public static LinkedHashMap<String, String> threat;
 
-    void init() {
+    static void init() {
         classes = new ArrayList<>();
         threat = new LinkedHashMap<>();
         load();
     }
 
-    void load() {
+    static void load() {
         classes.add("African Firefinch");
         threat.put("African Firefinch", "Least Concern");
         classes.add("Albatross");
