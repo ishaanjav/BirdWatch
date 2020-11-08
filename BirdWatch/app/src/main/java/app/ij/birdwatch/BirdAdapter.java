@@ -164,6 +164,12 @@ public class BirdAdapter extends ArrayAdapter<Row> {
         prob.setText(" " + bird.prob2 + " %");
     }
 
+    public String formatName(String s)
+    {
+        s = s.toUpperCase();
+        s = s.replaceAll(" ", "_");
+        return s;
+    }
 
     public void makeToast(String s) {
         Toast.makeText(context, s, Toast.LENGTH_SHORT).show();
