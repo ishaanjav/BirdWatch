@@ -66,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
 
         bindViews();
         clickers();
-//        startActivity(new Intent(MainActivity.this, ResultActivity.class));
+        startActivity(new Intent(MainActivity.this, ResultActivity.class));
     }
     public String createImageFromBitmap(Bitmap bitmap) {
         String fileName = "myImage";//no .png or .jpg needed
