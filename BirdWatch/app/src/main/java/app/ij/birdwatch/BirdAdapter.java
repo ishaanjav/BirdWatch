@@ -62,7 +62,7 @@ public class BirdAdapter extends ArrayAdapter<Row> {
         // README
         // Display results - image has to be based off of name
         name.setText(bird.bird1.replaceAll("_", "-"));
-        prob.setText(" " + bird.prob1 + " %");
+        prob.setText("Choice " + (position * 2 + 1));
 
 
         // No second bird
@@ -173,8 +173,7 @@ public class BirdAdapter extends ArrayAdapter<Row> {
         TextView name = v.findViewById(R.id.name2);
         TextView prob = v.findViewById(R.id.prob2);
         name.setText(bird.bird2.replaceAll("_", "-"));
-        prob.setText(" " + bird.prob2 + " %");
-
+        prob.setText("Choice " + (pos * 2 + 2));
         getBirdImage(pos, image, 2);
     }
 

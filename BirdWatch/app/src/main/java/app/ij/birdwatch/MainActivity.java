@@ -6,8 +6,12 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.res.AssetFileDescriptor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
+import android.graphics.Matrix;
+import android.location.Geocoder;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -33,18 +37,22 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.pytorch.IValue;
-import org.pytorch.Module;
-import org.pytorch.Tensor;
-import org.pytorch.torchvision.TensorImageUtils;
+import org.tensorflow.lite.Interpreter;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
+import java.nio.MappedByteBuffer;
+import java.nio.channels.FileChannel;
+import java.util.Arrays;
 import java.util.Comparator;
+import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -58,6 +66,7 @@ public class MainActivity extends AppCompatActivity {
     ContentValues values;
     CardView card;
     TextView prompt;
+    Interpreter tflite;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,7 +78,90 @@ public class MainActivity extends AppCompatActivity {
         bindViews();
         clickers();
 //        startActivity(new Intent(MainActivity.this, FinishedActivity.class));
+        try {
+            tflite = new Interpreter(loadModelFile());
+        } catch (IOException e) {
+            makeToast("Error getting model.");
+            Log.wtf("*Model Loading Error", e.toString());
+        }
+        test();
     }
+
+
+    void test() {
+        try {
+            tflite = new Interpreter(loadModelFile());
+            img = BitmapFactory.decodeResource(getApplicationContext().getResources(),
+                    R.drawable.bird);
+            image.setImageBitmap(img);
+            classifyImage(img);
+            classifyImage(BitmapFactory.decodeResource(getApplicationContext().getResources(),
+                    R.drawable.albatross));
+        } catch (Exception e) {
+            makeToast("Error getting model.");
+            Log.wtf("*Model Loading Error", e.toString());
+        }
+
+    }
+
+    private float[][] classifyImage(Bitmap bitmap) {
+        int imageSizeX = 224;
+        int imageSizeY = 224;
+
+        // initialize output array
+        float[][] inputVal = new float[1][225];
+        bitmap = getResizedBitmap(bitmap, imageSizeX, imageSizeY);
+
+        int size = bitmap.getRowBytes() * bitmap.getHeight();
+        ByteBuffer byteBuffer = ByteBuffer.allocateDirect(4 * 1 *
+                224 * 224 * 3); //float_size = 4 bytes
+        byteBuffer.order(ByteOrder.nativeOrder());
+        int[] intValues = new int[224 * 224];
+        bitmap.getPixels(intValues, 0, bitmap.getWidth(), 0, 0,
+                bitmap.getWidth(), bitmap.getHeight());
+        int pixel = 0;
+        String pix = "";
+
+        for (int i = 0; i < 224; ++i) {
+            for (int j = 0; j < 224; ++j) {
+                final int val = intValues[pixel++];
+                if(i < 1)
+                pix += val + " ";
+                byteBuffer.putFloat(((val >> 16) & 0xFF) * (1.f / 255.f));
+                byteBuffer.putFloat(((val >> 8) & 0xFF) * (1.f / 255.f));
+                byteBuffer.putFloat((val & 0xFF) * (1.f / 255.f));
+            }
+        }
+        Log.wtf("Byte", byteBuffer+"");
+
+        tflite.run(byteBuffer, inputVal);
+        Log.wtf("Results", Arrays.toString(inputVal[0]));
+        return inputVal;
+    }
+
+    public static Bitmap getResizedBitmap(Bitmap bm, int newWidth, int newHeight) {
+        int width = bm.getWidth();
+        int height = bm.getHeight();
+        float scaleWidth = ((float) newWidth) / width;
+        float scaleHeight = ((float) newHeight) / height;
+
+        Matrix matrix = new Matrix();
+        matrix.postScale(scaleWidth, scaleHeight);
+        Bitmap resizedBitmap = Bitmap.createBitmap(
+                bm, 0, 0, width, height, matrix, false);
+
+        return resizedBitmap;
+    }
+
+    public MappedByteBuffer loadModelFile() throws IOException {
+        AssetFileDescriptor fileDescriptor = this.getAssets().openFd("model.tflite");
+        FileInputStream inputStream = new FileInputStream(fileDescriptor.getFileDescriptor());
+        FileChannel fileChannel = inputStream.getChannel();
+        long startOffset = fileDescriptor.getStartOffset();
+        long declaredLength = fileDescriptor.getDeclaredLength();
+        return fileChannel.map(FileChannel.MapMode.READ_ONLY, startOffset, declaredLength);
+    }
+
     public String createImageFromBitmap(Bitmap bitmap) {
         String fileName = "myImage";//no .png or .jpg needed
         try {
@@ -85,24 +177,19 @@ public class MainActivity extends AppCompatActivity {
         }
         return fileName;
     }
+
     private void clickers() {
         identify.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //DONE
-                // Need to do the classification here
-                // Pass the float array and the bitmap
-//                try {
-                    Intent intent = new Intent(MainActivity.this, ResultActivity.class);
-//                    intent.putExtra("image", img);
-                    intent.putExtra("image", createImageFromBitmap(img));
-//                    intent.putExtra("probs", prediction());
-                    startActivity(intent);
-//                } catch (Exception e) {
-//                    makeToast("Error making prediction " + e.toString());
-//                    Log.wtf("*Error making prediction when going to next activity.", e.toString());
-//                    e.printStackTrace();
-//                }
+                Intent intent = new Intent(MainActivity.this, ResultActivity.class);
+                float[][] prediction = classifyImage(img);
+                intent.putExtra("image", createImageFromBitmap(img));
+                Log.wtf("Length: ", prediction[0].length + "");
+                intent.putExtra("probs", prediction[0]);
+//                classifyImage(img);
+//                image.setImageBitmap(img);
+                startActivity(intent);
             }
         });
         fab.setOnClickListener(new View.OnClickListener() {

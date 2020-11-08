@@ -1,13 +1,11 @@
 package app.ij.birdwatch;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
 
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -16,7 +14,6 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
-import android.widget.Toolbar;
 
 import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
@@ -27,7 +24,7 @@ import java.util.Comparator;
 
 public class ResultActivity extends AppCompatActivity {
 
-    float[] prob;
+    float[] probs;
     int top = 10;
     ArrayList<Bird> topResults;
     Bitmap img;
@@ -47,13 +44,15 @@ public class ResultActivity extends AppCompatActivity {
         } catch (FileNotFoundException e) {
             makeToast("Error getting image from previous page.");
         }
-        test();
+//        test();
+        top = 10;
         listener();
-//        getResults();
-//        loadList();
+        getResults();
+        loadList();
     }
+
     public String createImageFromBitmap(Bitmap bitmap) {
-        String fileName = "myImage";//no .png or .jpg needed
+        String fileName = "myImage";
         try {
             ByteArrayOutputStream bytes = new ByteArrayOutputStream();
             bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
@@ -67,6 +66,7 @@ public class ResultActivity extends AppCompatActivity {
         }
         return fileName;
     }
+
     void listener() {
         next.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -110,43 +110,29 @@ public class ResultActivity extends AppCompatActivity {
     }
 
 
-    void test() {
-        list = findViewById(R.id.list);
-        ArrayList<Row> rowList = new ArrayList<>();
-        rowList.add(new Row("Albatross", 0.32f, "Alexandrine Parakeet", 0.13f));
-        rowList.add(new Row("American Redstart", 0.12f, "Black_necked Grebe", 0.08f));
-//        rowList.add(new Row("E", 0.10f));
-        rowList.add(new Row("Black_throated Sparrow", 0.10f, "Cock Of The Rock", 0.01f));
-        Row lastRow = rowList.get(rowList.size() - 1);
-        if (lastRow.present) {
-            Row newRow = new Row("special", 0);
-            rowList.add(newRow);
-        } else {
-            lastRow = new Row(lastRow.bird1, lastRow.prob1, "special", 0);
-            rowList.set(rowList.size() - 1, lastRow);
-        }
-        BirdAdapter adapter = new BirdAdapter(getApplicationContext(), R.layout.bird_row, rowList);
-        list.setAdapter(adapter);
-    }
-
     private void loadAndBind() throws FileNotFoundException {
-//        prob = getIntent().getFloatArrayExtra("probs");
+        probs = getIntent().getExtras().getFloatArray("probs");
         img = BitmapFactory.decodeStream(getApplicationContext().openFileInput("myImage"));
         image = findViewById(R.id.image);
         next = findViewById(R.id.next);
-//        image.setImageBitmap(img);
+        image.setImageBitmap(img);
         list = findViewById(R.id.list);
+        for (float f : probs) {
+            Log.wtf("PRob: ", "" + f);
+        }
     }
 
     public void getResults() {
         pairs = new ArrayList<>();
-        for (int i = 0; i < prob.length; i++) {
-            pairs.add(new Pair(prob[i], i));
+        topResults = new ArrayList<>();
+        for (int i = 0; i < probs.length; i++) {
+            pairs.add(new Pair(probs[i], i));
         }
         Collections.sort(pairs, new Sort());
-        for (int i = pairs.size() - 1; i > pairs.size() - top; i--)
+        for (int i = pairs.size() - 1; i >= pairs.size() - top; i--) {
             topResults.add(new Bird(BirdClasses.classes.get(pairs.get(i).index), pairs.get(i).prob));
-        makeToast("Got: " + topResults);
+            Log.wtf("Added: ", (pairs.get(i).prob * 100) + "");
+        }
     }
 
     @Override
@@ -169,6 +155,11 @@ public class ResultActivity extends AppCompatActivity {
             bird = b;
             prob = p;
         }
+
+        public String toString() {
+            return bird + ": " + ((prob * 100));
+        }
+
     }
 
     public static class Pair {
@@ -176,7 +167,7 @@ public class ResultActivity extends AppCompatActivity {
         int index;
 
         public Pair(float i, int j) {
-            i = i;
+            prob = i;
             index = j;
         }
 
@@ -207,5 +198,24 @@ public class ResultActivity extends AppCompatActivity {
 
     public void makeToast(String s) {
         Toast.makeText(getApplicationContext(), s, Toast.LENGTH_LONG).show();
+    }
+
+    void test() {
+        list = findViewById(R.id.list);
+        ArrayList<Row> rowList = new ArrayList<>();
+        rowList.add(new Row("Albatross", 0.32f, "Alexandrine Parakeet", 0.13f));
+        rowList.add(new Row("American Redstart", 0.12f, "Black_necked Grebe", 0.08f));
+//        rowList.add(new Row("E", 0.10f));
+        rowList.add(new Row("Black_throated Sparrow", 0.10f, "Cock Of The Rock", 0.01f));
+        Row lastRow = rowList.get(rowList.size() - 1);
+        if (lastRow.present) {
+            Row newRow = new Row("special", 0);
+            rowList.add(newRow);
+        } else {
+            lastRow = new Row(lastRow.bird1, lastRow.prob1, "special", 0);
+            rowList.set(rowList.size() - 1, lastRow);
+        }
+        BirdAdapter adapter = new BirdAdapter(getApplicationContext(), R.layout.bird_row, rowList);
+        list.setAdapter(adapter);
     }
 }
