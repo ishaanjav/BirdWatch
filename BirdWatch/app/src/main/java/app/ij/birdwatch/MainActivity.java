@@ -215,7 +215,7 @@ public class MainActivity extends AppCompatActivity {
                     img = ImageHandling.centerCrop(img);
                     img = ImageHandling.handleSamplingAndRotationBitmap(getApplicationContext(), imageUri);
                     image.setImageBitmap(img);
-                    makeToast("Ready to identify the bird?");
+                    makeToast("Click on the search button on the right!");
                     prompt.setText("Identify the Bird!");
 
                     showIdentifier();
