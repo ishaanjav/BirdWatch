@@ -3,6 +3,8 @@ package app.ij.birdwatch;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
+import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -16,7 +18,9 @@ import android.widget.ListView;
 import android.widget.Toast;
 import android.widget.Toolbar;
 
+import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -48,7 +52,21 @@ public class ResultActivity extends AppCompatActivity {
 //        getResults();
 //        loadList();
     }
-
+    public String createImageFromBitmap(Bitmap bitmap) {
+        String fileName = "myImage";//no .png or .jpg needed
+        try {
+            ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+            FileOutputStream fo = openFileOutput(fileName, Context.MODE_PRIVATE);
+            fo.write(bytes.toByteArray());
+            // remember close file output
+            fo.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+            fileName = null;
+        }
+        return fileName;
+    }
     void listener() {
         next.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -56,6 +74,9 @@ public class ResultActivity extends AppCompatActivity {
                 if (Selected.chosen) {
                     //README
                     // Show thank you page or something
+                    Intent intent = new Intent(getApplicationContext(), FinishedActivity.class);
+                    intent.putExtra("image", createImageFromBitmap(img));
+                    startActivity(intent);
                 } else {
                     makeToast("Please select one of the options");
                 }

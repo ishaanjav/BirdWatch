@@ -1,9 +1,80 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".FinishedActivity">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <TextView
+        android:id="@+id/thank"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50sp"
+        android:text="Thank you for\nyour contribution!"
+        android:textAlignment="center"
+        android:textColor="#000"
+        android:textSize="26sp"
+        android:textStyle="bold|italic" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/thank"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="48sp"
+        app:cardCornerRadius="25dp">
+
+        <ImageView
+            android:id="@+id/img"
+            android:layout_width="250sp"
+            android:layout_height="250sp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/bird" />
+    </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:id="@+id/found"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/card"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="35sp"
+        android:layout_marginTop="7sp"
+        android:layout_marginRight="35sp"
+        android:text="You found a"
+        android:textColor="#000"
+        android:textSize="22sp"
+        android:textStyle="italic" />
+
+    <Button
+        android:id="@+id/info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/found"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="25sp"
+        android:background="@drawable/orange"
+        android:paddingLeft="30sp"
+        android:paddingRight="30sp"
+        android:text="Learn More"
+        android:textAllCaps="false"
+        android:textColor="#fff"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/action"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/info"
+        android:layout_marginLeft="40sp"
+        android:layout_marginTop="50sp"
+        android:text="We'll use your finding to improve our app!"
+        android:textSize="19sp"
+        android:layout_marginRight="26sp"
+        android:textStyle="italic" />
+
+
+</RelativeLayout>

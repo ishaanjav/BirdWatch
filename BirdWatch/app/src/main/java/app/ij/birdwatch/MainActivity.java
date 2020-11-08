@@ -64,9 +64,11 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        BirdClasses.init();
+
         bindViews();
         clickers();
-        startActivity(new Intent(MainActivity.this, ResultActivity.class));
+//        startActivity(new Intent(MainActivity.this, FinishedActivity.class));
     }
     public String createImageFromBitmap(Bitmap bitmap) {
         String fileName = "myImage";//no .png or .jpg needed
