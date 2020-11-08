@@ -92,11 +92,11 @@ public class MainActivity extends AppCompatActivity {
         try {
             tflite = new Interpreter(loadModelFile());
             img = BitmapFactory.decodeResource(getApplicationContext().getResources(),
-                    R.drawable.bird);
+                    R.drawable.american_avocet);
             image.setImageBitmap(img);
-            classifyImage(img);
-            classifyImage(BitmapFactory.decodeResource(getApplicationContext().getResources(),
-                    R.drawable.albatross));
+//            classifyImage(img);
+//            classifyImage(BitmapFactory.decodeResource(getApplicationContext().getResources(),
+//                    R.drawable.albatross));
         } catch (Exception e) {
             makeToast("Error getting model.");
             Log.wtf("*Model Loading Error", e.toString());
@@ -120,22 +120,19 @@ public class MainActivity extends AppCompatActivity {
         bitmap.getPixels(intValues, 0, bitmap.getWidth(), 0, 0,
                 bitmap.getWidth(), bitmap.getHeight());
         int pixel = 0;
-        String pix = "";
 
         for (int i = 0; i < 224; ++i) {
             for (int j = 0; j < 224; ++j) {
                 final int val = intValues[pixel++];
-                if(i < 1)
-                pix += val + " ";
                 byteBuffer.putFloat(((val >> 16) & 0xFF) * (1.f / 255.f));
                 byteBuffer.putFloat(((val >> 8) & 0xFF) * (1.f / 255.f));
                 byteBuffer.putFloat((val & 0xFF) * (1.f / 255.f));
             }
         }
-        Log.wtf("Byte", byteBuffer+"");
+//        Log.wtf("Byte", byteBuffer + "");
 
         tflite.run(byteBuffer, inputVal);
-        Log.wtf("Results", Arrays.toString(inputVal[0]));
+//        Log.wtf("Results", Arrays.toString(inputVal[0]));
         return inputVal;
     }
 
