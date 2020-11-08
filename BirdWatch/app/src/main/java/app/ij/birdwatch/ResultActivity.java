@@ -1,14 +1,24 @@
 package app.ij.birdwatch;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
+import androidx.core.app.ActivityCompat;
 
+import android.Manifest;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.location.Location;
+import android.location.LocationManager;
+import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -21,12 +31,15 @@ import android.widget.Toolbar;
 import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
 public class ResultActivity extends AppCompatActivity {
 
+    private static final int REQUEST_LOCATION = 1;
     float[] prob;
     int top = 10;
     ArrayList<Bird> topResults;
@@ -35,6 +48,8 @@ public class ResultActivity extends AppCompatActivity {
     Button next;
     ListView list;
     ArrayList<Pair> pairs;
+    LocationManager locationManager;
+    String latitude, longitude;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +67,105 @@ public class ResultActivity extends AppCompatActivity {
 //        getResults();
 //        loadList();
     }
+
+    public double[] location()
+    {
+        //add permission
+        ActivityCompat.requestPermissions(this, new String[]
+                {Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_LOCATION);
+
+        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        //Check gps is enable or not
+        if (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER))
+        {
+            //enables gps
+            OnGPS();
+        }
+        else
+        {
+            //GPS is already on
+            double[] arr = getLocation();
+            return arr;
+        }
+        return null;
+    }
+
+    private double[] getLocation() {
+        //Check permissions again
+        if (ActivityCompat.checkSelfPermission(ResultActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(ResultActivity.this,
+
+                Manifest.permission.ACCESS_COARSE_LOCATION) !=PackageManager.PERMISSION_GRANTED)
+        {
+            ActivityCompat.requestPermissions(this,new String[]
+                    {Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_LOCATION);
+        }
+        else {
+            Location LocationGps = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+            Location LocationNetwork = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+            Location LocationPassive = locationManager.getLastKnownLocation(LocationManager.PASSIVE_PROVIDER);
+            double arr[] = new double[2];
+            if (LocationGps != null) {
+                double lat = LocationGps.getLatitude();
+                double longi = LocationGps.getLongitude();
+
+                latitude = String.valueOf(lat);
+                longitude = String.valueOf(longi);
+                Log.wtf("Location" , latitude + " " + longitude);
+                arr[0] = lat; arr[1] = longi; return arr;
+                //showLocationTxt.setText("Your Location:"+"\n"+"Latitude= "+latitude+"\n"+"Longitude= "+longitude);
+            } else if (LocationNetwork != null) {
+                double lat = LocationNetwork.getLatitude();
+                double longi = LocationNetwork.getLongitude();
+
+                latitude = String.valueOf(lat);
+                longitude = String.valueOf(longi);
+                Log.wtf("Location" , latitude + " " + longitude);
+                arr[0] = lat; arr[1] = longi; return arr;
+                //showLocationTxt.setText("Your Location:"+"\n"+"Latitude= "+latitude+"\n"+"Longitude= "+longitude);
+            } else if (LocationPassive != null) {
+                double lat = LocationPassive.getLatitude();
+                double longi = LocationPassive.getLongitude();
+
+                latitude = String.valueOf(lat);
+                longitude = String.valueOf(longi);
+                Log.wtf("Location" , latitude + " " + longitude);
+                arr[0] = lat; arr[1] = longi; return arr;
+                //showLocationTxt.setText("Your Location:"+"\n"+"Latitude= "+latitude+"\n"+"Longitude= "+longitude);
+            } else {
+                Toast.makeText(this, "Can't Get Your Location", Toast.LENGTH_SHORT).show();
+                return null;
+            }
+        }
+        return null;
+    }
+
+    private void OnGPS() {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("Enable GPS").setCancelable(false).setPositiveButton("YES", new DialogInterface.OnClickListener(){
+            @Override
+            public void onClick(DialogInterface dialog, int which){
+                startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS));
+            }
+        }).setNegativeButton("NO", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+        final AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public String getTime()
+    {
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+        LocalDateTime now = LocalDateTime.now();
+        System.out.println(dtf.format(now));
+        return now.toString();
+    }
+
     public String createImageFromBitmap(Bitmap bitmap) {
         String fileName = "myImage";//no .png or .jpg needed
         try {
