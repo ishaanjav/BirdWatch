@@ -108,8 +108,8 @@ class BirdClasses {
         threat.put("Canary", "Least Concern");
         classes.add("Cape May Warbler");
         threat.put("Cape May Warbler", "Least Concern");
-        classes.add("Capuchin Bird");
-        threat.put("Capuchin Bird", "Critically Endangered");
+        classes.add("Capuchinbird");
+        threat.put("Capuchinbird", "Critically Endangered");
         classes.add("Carmine Bee_eater");
         threat.put("Carmine Bee_eater", "Least Concern");
         classes.add("Caspian Tern");

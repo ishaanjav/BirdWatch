@@ -92,7 +92,7 @@ public class MainActivity extends AppCompatActivity {
         try {
             tflite = new Interpreter(loadModelFile());
             img = BitmapFactory.decodeResource(getApplicationContext().getResources(),
-                    R.drawable.capuchinbird);
+                    R.drawable.cap);
             image.setImageBitmap(img);
 //            classifyImage(img);
 //            classifyImage(BitmapFactory.decodeResource(getApplicationContext().getResources(),

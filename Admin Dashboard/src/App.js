@@ -7,7 +7,8 @@ import firebase from "firebase";
 
 function App(props) {
   const [currentCenter, setCurrentCenter] = useState({lat: 43, lng: -80});
-  const [birdData, setData] = useState({});
+  const [birdData, setBirdData] = useState({});
+  const [locations, setLocations] = useState([])
 
   useEffect(() => {
     var firebaseConfig = {
@@ -25,26 +26,64 @@ function App(props) {
       let ref = firebase.database().ref('/');
       ref.on('value', snapshot => {
         const state = snapshot.val();
-        console.log(state);
-        setData(state)
+        console.log("state", state);
+        setBirdData(state);
+        var locs = []
+        for (var timestamp in state) {
+          locs.push({lat: state[timestamp].lat, lng: state[timestamp].lng});
+        }
+        setLocations(locs);
       });
-      
+
   }, []);
+
+  useEffect(() => {
+    console.log("locations", locations);
+  }, [locations]);
 
     return <>
       <div style={{ maxWidth: "100%" }} className="flex flex-row overflow-x-hidden h-full">
         <Map
           currentCenter={currentCenter}
+          locations = {locations}
         />
         <div className="w-75 bg-white h-screen px-3 py-3">
           <SearchBar></SearchBar>
           <SightingCard
-            title="Niagra Falls, New York State"
-            lat={40}
-            lng={20}
+            title="Lincoln, Ontario, Canada"
+            lat={43.397}
+            lng={-80.644}
             sightings={16}
             notExtinct={12}
             endangered={4}
+            setCurrentCenter={setCurrentCenter}
+          />
+
+          <SightingCard
+            title="Beamsville, Ontario, Canada"
+            lat={43.1385}
+            lng={-79.4845}
+            sightings={10}
+            notExtinct={9}
+            endangered={1}
+            setCurrentCenter={setCurrentCenter}
+          />
+          <SightingCard
+            title="Plano East, TX, USA"
+            lat={33.0334}
+            lng={-96.67525}
+            sightings={10}
+            notExtinct={5}
+            endangered={0}
+            setCurrentCenter={setCurrentCenter}
+          />
+          <SightingCard
+            title="Plano, TX, USA"
+            lat={33.006740}
+            lng={-96.650440}
+            sightings={10}
+            notExtinct={5}
+            endangered={1}
             setCurrentCenter={setCurrentCenter}
           />
         </div>
