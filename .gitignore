@@ -14,4 +14,5 @@
 /BirdWatch.cxx
 prediction.java
 bird-model.pth
+oldModel.tflite
 node_modules/
