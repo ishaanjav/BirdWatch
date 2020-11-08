@@ -1,4 +1,5 @@
 # BirdWatch
+## Shrey Joshi, Ishaan Javali, Madhu Sharma, & Kanishk Garg
 
 **A better tracking of endangered bird species using machine learning.**
 
