@@ -1,5 +1,6 @@
 # BirdWatch
 
+A better tracking of endangered bird species using machine learning.
 A smart system that uses deep learning to identify bird species and provide information, including *endangered level*, to users so as to raise awareness for endangered species and help people learn more. 
 - The app crowdsources new bird data by storing labelled images captured by users in Firebase.
   - This crowdsourced, labelled data is used to train newer versions of the model.
