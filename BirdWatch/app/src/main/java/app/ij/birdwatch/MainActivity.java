@@ -92,7 +92,7 @@ public class MainActivity extends AppCompatActivity {
         try {
             tflite = new Interpreter(loadModelFile());
             img = BitmapFactory.decodeResource(getApplicationContext().getResources(),
-                    R.drawable.american_avocet);
+                    R.drawable.bird);
             image.setImageBitmap(img);
 //            classifyImage(img);
 //            classifyImage(BitmapFactory.decodeResource(getApplicationContext().getResources(),
@@ -151,7 +151,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public MappedByteBuffer loadModelFile() throws IOException {
-        AssetFileDescriptor fileDescriptor = this.getAssets().openFd("model.tflite");
+        AssetFileDescriptor fileDescriptor = this.getAssets().openFd("bird_classifier.tflite");
         FileInputStream inputStream = new FileInputStream(fileDescriptor.getFileDescriptor());
         FileChannel fileChannel = inputStream.getChannel();
         long startOffset = fileDescriptor.getStartOffset();
@@ -215,7 +215,7 @@ public class MainActivity extends AppCompatActivity {
                     img = ImageHandling.centerCrop(img);
                     img = ImageHandling.handleSamplingAndRotationBitmap(getApplicationContext(), imageUri);
                     image.setImageBitmap(img);
-                    makeToast("Ready to identify the bird?");
+                    makeToast("Click on the search button on the right!");
                     prompt.setText("Identify the Bird!");
 
                     showIdentifier();
@@ -242,7 +242,7 @@ public class MainActivity extends AppCompatActivity {
                 identify.setAnimation(fadeIn);
             }
         };
-        h.postDelayed(r, 1200);
+        h.postDelayed(r, 1225);
     }
 
     @Override
