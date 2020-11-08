@@ -47,6 +47,20 @@ function App(props) {
           currentCenter={currentCenter}
           locations = {locations}
         />
+        {/* get from firebase via passed in state */}
+          {birdData.map((value, key) => {
+            return <SightingCard
+            title="Plano, TX, USA"
+            lat={value.lat}
+            lng={value.lng}
+            sightings={Object.keys(value.sightings).length}
+            notExtinct={value.notExtinct}
+            endangered={value.endangered}
+            setCurrentCenter={setCurrentCenter}
+          />
+          })}
+          {/* placeholders */}
+{/* 
         <div className="w-75 bg-white h-screen px-3 py-3">
           <SearchBar></SearchBar>
           <SightingCard
@@ -85,7 +99,8 @@ function App(props) {
             notExtinct={5}
             endangered={1}
             setCurrentCenter={setCurrentCenter}
-          />
+          /> */}
+          
         </div>
       </div>
     </>

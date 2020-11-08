@@ -11,7 +11,16 @@ import {
 const MapComponent = withScriptjs(
   withGoogleMap((props) => (
     <GoogleMap defaultZoom={6} center={props.center}>
-          <Marker
+          {/* get from firebase */}
+          {props.markers.map((value, key) => {
+            return <Marker
+            key={key}
+            position={{ lat: value[0], lng: value[1] }}
+            icon="https://www.robotwoods.com/dev/misc/bluecircle.png"
+          />
+          })}
+          {/* placeholders */}
+          {/* <Marker
             position={{ lat: 43.397, lng: -80.644 }}
             icon="https://www.robotwoods.com/dev/misc/bluecircle.png"
           />
@@ -26,7 +35,7 @@ const MapComponent = withScriptjs(
           <Marker
             position={{ lat: 33.006740, lng: -96.650440 }}
             icon="https://www.robotwoods.com/dev/misc/bluecircle.png"
-          />
+          /> */}
     </GoogleMap>
   ))
 );
